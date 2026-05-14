@@ -1,0 +1,17 @@
+<div class="article-votes" id="vote-bar-{{ article.id }}">
+    <div class="progress-bar-container">
+
+        <div class="progress-segment segment-yes" style="width: {{ article.pct_yes }}%;" title="Kyllä">
+            {{ article.pct_yes }}%
+        </div>
+
+        <div class="progress-segment segment-undecided" style="width: {{ article.pct_undecided }};" title="Puolueeton">
+            {{ article.pct_undecided }}%
+        </div>
+
+        <div class="progress-segment segment-no" style="width: {{ article.pct_no }};" title="Ei">
+            {{ article.pct_no }}%
+        </div>
+
+    </div>
+</div>

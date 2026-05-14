@@ -1,0 +1,50 @@
+{% load i18n %}
+<div id="vote-section-{{ article.id }}">
+
+    <h2>Käyttäjien Mielipide</h2>
+
+    <div class="article-votes">
+        <div class="progress-bar-container">
+
+            <div class="progress-segment segment-yes" style="width: {{ article.pct_yes }}%;" title="Kyllä">
+                {{ article.pct_yes }}%
+            </div>
+
+            <div class="progress-segment segment-undecided" style="width: {{ article.pct_undecided }}%;" title="Puolueeton">
+                {{ article.pct_undecided }}%
+            </div>
+
+            <div class="progress-segment segment-no" style="width: {{ article.pct_no }}%;" title="Ei">
+                {{ article.pct_no }}%
+            </div>
+
+        </div>
+    </div>
+    
+    <h2>Oma Mielipiteesi</h2>
+    
+    <div class="article-vote">
+
+        <button class="article-vote-yes"
+            hx-post="{% url 'vote' article.id 'yes' %}"
+            hx-target="#vote-section-{{ article.id }}"
+            hx-swap="outerHTML">
+            <strong>Kyllä ({{ article.votes_yes }})</strong>
+        </button>
+
+        <button class="article-vote-undecided"
+            hx-post="{% url 'vote' article.id 'undecided' %}"
+            hx-target="#vote-section-{{ article.id }}"
+            hx-swap="outerHTML">
+            <strong>Puolueeton ({{ article.votes_undecided }})</strong>
+        </button>
+
+        <button class="article-vote-no"
+            hx-post="{% url 'vote' article.id 'no' %}"
+            hx-target="#vote-section-{{ article.id }}"
+            hx-swap="outerHTML">
+            <strong>Ei ({{ article.votes_no }})</strong>
+        </button>
+
+    </div>
+</div>

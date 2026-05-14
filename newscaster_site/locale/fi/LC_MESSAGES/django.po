@@ -1,0 +1,84 @@
+# Finnish translations for newscaster
+msgid ""
+msgstr ""
+"Project-Id-Version: newscaster\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-24 22:34+0300\n"
+"PO-Revision-Date: 2025-09-17 09:52+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: newscaster_site/dj_newscaster/settings.py:110
+msgid "Finnish"
+msgstr ""
+
+#: newscaster_site/dj_newscaster/settings.py:111
+msgid "Swedish"
+msgstr ""
+
+#: newscaster_site/dj_newscaster/settings.py:112
+msgid "English"
+msgstr ""
+
+#: newscaster_site/news/templates/news/article_list.html:23
+#, python-format
+msgid "Word count: %(word_count)s. Estimated reading time: %(reading_time)s min."
+msgstr "Sanamäärä: %(word_count)s. Arvioitu lukuaika: %(reading_time)s min."
+
+#: newscaster_site/news/templates/news/article_list.html:28
+msgid "Proposal Summary"
+msgstr "Esityksen Yhteenveto"
+
+#: newscaster_site/news/templates/news/article_list.html:31
+msgid "Impact on Citizens"
+msgstr "Vaikutus Kansalaisiin"
+
+#: newscaster_site/news/templates/news/article_list.html:36
+msgid "Source"
+msgstr "Lähde"
+
+#: newscaster_site/news/templates/news/article_list.html:36
+msgid "Read original document"
+msgstr "Lue alkuperäinen asiakirja"
+
+#: newscaster_site/news/templates/news/article_list.html:39
+
+#: newscaster_site/news/templates/news/article_list.html:47
+msgid "No articles found in the database."
+msgstr "Tietokannasta ei löytynyt artikkeleita."
+
+#: newscaster_site/news/templates/news/base.html:9
+#: newscaster_site/news/templates/news/base.html:16
+msgid "Newscaster"
+msgstr "Newscaster"
+
+#: newscaster_site/news/templates/news/base.html:18
+msgid "Proposal Summaries"
+msgstr "Esitysten Yhteenvedot"
+
+#: newscaster_site/news/templates/news/base.html:19
+msgid "About"
+msgstr "Tietoja"
+
+#: newscaster_site/news/templates/news/base.html:20
+msgid "Contact"
+msgstr "Ota yhteyttä"
+
+#~ msgid "Newscaster Summaries"
+#~ msgstr "Esitysten Yhteenvedot"
+
+#, python-format
+#~ msgid ""
+#~ "Word count: %(summary_rt.word_count)s. Estimated reading time: "
+#~ "%(summary_rt.reading_time)s min."
+#~ msgstr ""
+#~ "Sanamäärä: %(summary_rt.word_count)s. Arvioitu lukuaika: "
+#~ "%(summary_rt.reading_time)s min."
+
+#~ msgid "Status and Outcome"
+#~ msgstr "Tila ja Lopputulos"

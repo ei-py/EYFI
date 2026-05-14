@@ -1,0 +1,45 @@
+{% extends "news/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<!-- <div class="progress-bar-text">
+    <ul>
+        {% for summary in stage_summaries %}
+        <li>
+            <p><strong><span class="stage-name">{{ summary.stage_name }}</span></strong><br></p>
+            <p><span class="stage-count">{{ summary.article_count }}</span></p>
+        </li>
+        {% endfor %}
+    </ul>
+</div> -->
+{% for article in articles %}
+<div class="article">
+    <div class="article-heading-title">
+        <h1 class="article-title">{{ article.translated_title }}</h1>
+        <h1 class="article-state">{{ article.translated_state }}: {{ article.translated_stage }}</h1>
+    </div>
+    <div class="article-body">
+        <h2>{{ article.translated_subject }}</h2>
+        <p>{{ article.translated_summary_proposal_details }}</p>
+
+        <h2>{% trans "Impact on Citizens" %}</h2>
+        <p>{{ article.translated_summary_citizen_impact }}</p>
+        
+        {% include "news/_voting_section.html" %}
+
+        <div class="article-source">
+            <p>
+                <strong>{% trans "Source" %}:</strong> <a href="{{ article.source_url }}" target="_blank">{% trans "Read original document" %}</a>
+                {% with raw_rt=article.get_raw_content_reading_time %}
+                {% blocktrans with word_count=raw_rt.word_count reading_time=raw_rt.reading_time %}Word count:
+                {{ word_count }}. Estimated reading time: {{ reading_time }} min.{% endblocktrans %}
+                {% endwith %}
+            </p>
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>{% trans "No articles found in the database." %}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,429 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 1em 1em;
+    justify-items: center;
+    display: grid;
+}
+
+.nav-items {
+    width: 90%;
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-brand {
+    font-weight: bold;
+}
+
+.nav-links {
+    font-weight: bold;
+}
+
+.nav-lang-switcher {
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.nav-links a,
+.nav-lang-switcher a {
+    margin: 0 1em;
+    color: #0a64a0;
+}
+
+.nav-lang-switcher a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+
+.progress-bar-text {
+    width: 100%;
+    display: flex;
+    margin: 0em;
+    padding: 0em 0em 9em 0em;
+    justify-content: space-evenly;
+}
+
+.progress-bar-text ul {
+    padding: 0em;
+    margin: 0;
+    list-style-type: none;
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.progress-bar-text li {
+    text-align: center;
+}
+
+.progress-bar-text p {
+    margin: 0em;
+    padding: 0em;
+}
+
+body {
+    font-family: sans-serif;
+    padding-top: 14em;
+    background-color: #f4f4f4;
+    color: #333;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    background: #f4f4f4;
+    justify-items: center;
+    padding-top: 3em;
+
+    overflow-y: scroll;
+    height: calc(100vh - 12em);
+    scroll-snap-type: y mandatory;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.article {
+    max-width: 1080px;
+    background: white;
+    margin-bottom: 12em;
+    box-shadow: 10px 12px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    border-bottom: none;
+    border-color: #0a64a0;
+    border-style: solid;
+    border-width: 1px;
+
+    scroll-snap-align: start;
+}
+
+.article-body {
+    margin: 0em;
+    padding: 1em 1em 1em 1em;
+}
+
+.article-heading-title {
+    background-color: #0a64a0;
+    margin: 0em;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.9em 0.9em 0em 0em;
+}
+
+.article-heading-title h1 {
+    color: white;
+    font-size: 1.2em;
+    margin: 0em;
+    padding: 0em;
+}
+
+.article h2 {
+    margin: 0em;
+    padding: 0.6em;
+    font-size: 1em;
+}
+
+.article p {
+    margin: 0em;
+    padding: 0.6em;
+    text-align: justify;
+}
+
+.article-source {
+    color: black;
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 0.6em 0em 0.6em 0em;
+    padding: 0em 0.6em 0em 0.6em;
+}
+
+.article-votes {
+    display: flex;
+    justify-content: center;
+    margin: 0.3em;
+}
+
+.article-vote {
+    display: flex;
+    justify-content: space-evenly;
+    border: 0em;
+}
+
+.article-vote-yes {
+    flex: 1;
+    background-color: #6ac46a;
+    color: #f4f4f4;
+    font-size: 1.2em;
+    padding: 0.6em;
+    margin: 0.3em;
+    border: none;
+    border-radius: 0.6em;
+}
+
+.article-vote-yes:hover {
+    background-color: #4df04d;
+}
+
+.article-vote-yes:active {
+    background-color: #a2f8a2;
+}
+
+.article-vote-undecided {
+    flex: 1;
+    background-color: #b89d4f;
+    color: #f4f4f4;
+    font-size: 1.2em;
+    padding: 0.6em;
+    margin: 0.3em;
+    border: none;
+    border-radius: 0.6em;
+}
+
+.article-vote-undecided:hover {
+    background-color: #e5c051;
+}
+
+.article-vote-undecided:active {
+    background-color: #fcd86b;
+}
+
+.article-vote-no {
+    flex: 1;
+    background-color: #a24343;
+    color: #f4f4f4;
+    font-size: 1.2em;
+    padding: 0.6em;
+    margin: 0.3em;
+    border: none;
+    border-radius: 0.6em;
+}
+
+.article-vote-no:hover {
+    background-color: #ef5656;
+}
+
+.article-vote-no:active {
+    background-color: #fc7676;
+}
+
+.progress-bar-container {
+    display: flex;
+    width: 100%;
+    margin: 0em;
+    height: 1.4em;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-segment {
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.segment-yes {
+    background-color: #7cff7c;
+}
+
+.segment-undecided {
+    background-color: #e5c051;
+}
+
+.segment-no {
+    background-color: #ef5656;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* --- NEW SEARCH BAR STYLES --- */
+
+/* 2. SEARCH WRAPPER (The Anchor) */
+.search-wrapper {
+    position: relative;
+    width: 600px;
+    /* Doubled width as requested */
+    display: flex;
+    align-items: center;
+    margin-top: 1em;
+    padding: 0.6em;
+}
+
+/* 3. INPUT (The Bar) */
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 0.15em solid #0a64a0;
+    /* Thinner border */
+    outline: none;
+    transition: border-radius 0.3s ease;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    font-size: 1em;
+    padding-right: 50px;
+    /* Make space for spinner/clear button */
+    -webkit-appearance: none;
+    /* Remove default search input styling for WebKit browsers */
+}
+
+/* Hide the clear button for search input in WebKit browsers */
+.search-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* 4. RESULTS (The Overlay) */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    color: black;
+    border-radius: 0 0 20px 20px;
+    border: 0.15em solid #0a64a0;
+    /* Thinner border, matching input */
+    border-top: none;
+    /* Seamless connection */
+    margin-top: -0.15em;
+    /* Overlap with input border */
+    padding-top: 15px;
+    z-index: 5;
+
+    /* Hidden State */
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+
+    /* Animation */
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, visibility 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* INTERACTION */
+/* Only flatten corners and show results if has-results class is present */
+.search-wrapper.has-results .search-input {
+    border-radius: 20px 20px 0 0;
+    /* Flatten bottom corners */
+}
+
+.search-wrapper.has-results .search-results {
+    visibility: visible;
+    opacity: 1;
+    max-height: 300px;
+    /* Expands down */
+    padding-top: 25px;
+}
+
+/* List Styles within search-results */
+.search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-results li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-results li:last-child {
+    border-bottom: none;
+}
+
+.search-results li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.search-results li a:hover {
+    background: #f0f8ff;
+}
+
+/* Clear Search Button */
+.clear-search {
+    position: absolute;
+    right: 15px;
+    /* Position to the right of the input */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #888;
+    cursor: pointer;
+    z-index: 11;
+    /* Above input and spinner */
+    padding: 0;
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 0.2s ease;
+}
+
+.search-input:not(:placeholder-shown)+#search-spinner+.clear-search {
+    opacity: 1;
+    /* Show when input has text */
+}
+
+.clear-search:hover {
+    color: #333;
+}
+
+/* HTMX spinner */
+#search-spinner {
+    position: absolute;
+    right: 40px;
+    /* Position to the left of the clear button */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 11;
+    height: 20px;
+    width: 20px;
+}
+
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    display: inline-block;
+}
+
+.no-results {
+    padding: 10px;
+    text-align: center;
+    color: #888;
+}

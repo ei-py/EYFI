@@ -1,0 +1,24 @@
+{% extends 'news/base.html' %}
+
+{% block title %}{{ article.translated_title }}{% endblock %}
+
+{% block content %}
+<div class="article-detail">
+    <h1>{{ article.translated_title }}</h1>
+    <h2>{{ article.translated_subject }}</h2>
+    <p><strong>State:</strong> {{ article.translated_state }}</p>
+    <p><strong>Stage:</strong> {{ article.translated_stage }}</p>
+
+    <h3>Proposal Details:</h3>
+    <p>{{ article.summary_proposal_details_fi }}</p>
+
+    <h3>Citizen Impact:</h3>
+    <p>{{ article.summary_citizen_impact_fi }}</p>
+
+    <p><a href="{{ article.source_url }}" target="_blank">Read Full Document</a></p>
+
+    <div id="voting-section">
+        {% include 'news/_voting_section.html' with article=article %}
+    </div>
+</div>
+{% endblock %}

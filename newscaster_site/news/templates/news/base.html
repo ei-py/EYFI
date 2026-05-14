@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% trans "Newscaster" %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'news/style.css' %}">
+
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'
+        });
+    </script>
+    <script src="{% static 'news/htmx.min.js' %}"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-items">
+            <div class="nav-brand">
+                <a class="brand" href="/">{% trans "Newscaster" %}</a>
+            </div>
+            <div class="nav-links">
+                <a href="#">{% trans "About" %}</a>
+                <a href="#">{% trans "Proposal Summaries" %}</a>
+                <a href="#">{% trans "Statistics" %}</a>
+                <a href="#">{% trans "Contact" %}</a>
+            </div>
+            <div class="nav-lang-switcher">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <a href="/{{ language.code }}/" {% if language.code == LANGUAGE_CODE %}class="active" {% endif %}>{{
+                    language.code|upper }}</a>
+                {% if not forloop.last %} | {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="search-wrapper">
+            <input type="search" name="search" class="search-input" placeholder="Start typing..."
+                hx-post="{% url 'search_results' %}" hx-trigger="keyup changed delay:300ms, search"
+                hx-target="#search-results" hx-swap="innerHTML" hx-indicator="#search-spinner" minlength="3">
+            <img id="search-spinner" class="htmx-indicator" src="{% static 'news/img/spinner.svg' %}" alt="Loading...">
+            <button class="clear-search"
+                hx-on="click: this.form.search.value=''; htmx.trigger(this.form.search, 'input');"> &times; </button>
+            <div id="search-results" class="search-results"
+                hx-on="htmx:afterSwap: if(this.innerHTML.trim() !== '') { this.closest('.search-wrapper').classList.add('has-results'); } else { this.closest('.search-wrapper').classList.remove('has-results'); }">
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>
