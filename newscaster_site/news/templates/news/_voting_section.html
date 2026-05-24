@@ -1,50 +1,38 @@
 {% load i18n %}
-<div id="vote-section-{{ article.id }}">
-
-    <h2>Käyttäjien Mielipide</h2>
-
-    <div class="article-votes">
-        <div class="progress-bar-container">
-
-            <div class="progress-segment segment-yes" style="width: {{ article.pct_yes }}%;" title="Kyllä">
-                {{ article.pct_yes }}%
-            </div>
-
-            <div class="progress-segment segment-undecided" style="width: {{ article.pct_undecided }}%;" title="Puolueeton">
-                {{ article.pct_undecided }}%
-            </div>
-
-            <div class="progress-segment segment-no" style="width: {{ article.pct_no }}%;" title="Ei">
-                {{ article.pct_no }}%
-            </div>
-
-        </div>
+<div id="vote-section-{{ article.id }}" class="voting-buttons vote-section-base">
+    <div class="vote-header">
+        <h3>Your Opinion matters</h3>
+        <span class="vote-header-meta">Join {{ article.total_votes }} citizens</span>
     </div>
-    
-    <h2>Oma Mielipiteesi</h2>
-    
-    <div class="article-vote">
 
-        <button class="article-vote-yes"
+    <div class="vote-actions">
+        <button
             hx-post="{% url 'vote' article.id 'yes' %}"
             hx-target="#vote-section-{{ article.id }}"
-            hx-swap="outerHTML">
-            <strong>Kyllä ({{ article.votes_yes }})</strong>
+            hx-swap="outerHTML"
+            class="btn-vote yes">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            YES
         </button>
-
-        <button class="article-vote-undecided"
+        <button
             hx-post="{% url 'vote' article.id 'undecided' %}"
             hx-target="#vote-section-{{ article.id }}"
-            hx-swap="outerHTML">
-            <strong>Puolueeton ({{ article.votes_undecided }})</strong>
+            hx-swap="outerHTML"
+            class="btn-vote und">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            NEUTRAL
         </button>
-
-        <button class="article-vote-no"
+        <button
             hx-post="{% url 'vote' article.id 'no' %}"
             hx-target="#vote-section-{{ article.id }}"
-            hx-swap="outerHTML">
-            <strong>Ei ({{ article.votes_no }})</strong>
+            hx-swap="outerHTML"
+            class="btn-vote no">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            NO
         </button>
+    </div>
 
+    <div class="vote-teaser">
+        <p>Vote to reveal community consensus.</p>
     </div>
 </div>

@@ -1,0 +1,67 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Your Profile</h2>
+
+    <div class="profile-container" style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <div class="profile-header" style="text-align: center; margin-bottom: 20px;">
+            {% if user.userprofile.profile_picture %}
+                <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;">
+            {% else %}
+                <div style="width: 150px; height: 150px; border-radius: 50%; background-color: #eee; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: #aaa; font-size: 1.2em;">No Image</span>
+                </div>
+            {% endif %}
+            <h3>{{ user.username }}</h3>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save changes</button>
+        </form>
+    </div>
+
+    <div class="agreement-figures" style="border: 1px solid #ccc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h4>Agreement with Government</h4>
+        <p><strong>Social Issues:</strong> 75%</p>
+        <p><strong>Economic Issues:</strong> 50%</p>
+        <p><strong>Foreign Policy:</strong> 60%</p>
+    </div>
+
+    <div class="voting-history">
+        <h4>Voting History</h4>
+        <table class="table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Proposal</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Subject</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Your Vote</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Government Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Proposal A</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Healthcare</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Yes</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Yes</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Proposal B</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Education</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">No</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Yes</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Proposal C</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Infrastructure</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Neutral</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">No</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

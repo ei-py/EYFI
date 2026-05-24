@@ -1,0 +1,58 @@
+{% load i18n %}
+<div id="vote-section-{{ article.id }}" class="voted-summary vote-section-base">
+    
+    <header class="voted-summary-header">
+        <div>
+            <h4 class="summary-heading">{% trans "Your Stance" %}</h4>
+            <div class="user-stance">
+                <span class="user-stance-dot 
+                    {% if user_vote_type == 'yes' %}bg-vote-yes{% elif user_vote_type == 'undecided' %}bg-vote-und{% elif user_vote_type == 'no' %}bg-vote-no{% endif %}">
+                </span>
+                <span class="user-stance-text">
+                    {% if user_vote_type == 'yes' %}{% trans "Yes" %}{% elif user_vote_type == 'undecided' %}{% trans "Neutral" %}{% elif user_vote_type == 'no' %}{% trans "No" %}{% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="global-consensus">
+            <h4 class="summary-heading">{% trans "Global Consensus" %}</h4>
+            <p>{{ article.total_votes }} {% trans "Votes" %}</p>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="progress-segment bg-vote-yes" style="width: {{ article.pct_yes }}%;">
+            {% if article.pct_yes > 10 %}{{ article.pct_yes }}%{% endif %}
+        </div>
+        <div class="progress-segment bg-vote-und" style="width: {{ article.pct_undecided }}%;">
+            {% if article.pct_undecided > 10 %}{{ article.pct_undecided }}%{% endif %}
+        </div>
+        <div class="progress-segment bg-vote-no" style="width: {{ article.pct_no }}%;">
+            {% if article.pct_no > 10 %}{{ article.pct_no }}%{% endif %}
+        </div>
+    </div>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-dot bg-vote-yes"></span>
+            <span>{% trans "Yes" %} ({{ article.votes_yes }})</span>
+        </div>
+        <div class="legend-item center">
+            <span class="legend-dot bg-vote-und"></span>
+            <span>{% trans "Neutral" %} ({{ article.votes_undecided }})</span>
+        </div>
+        <div class="legend-item end">
+            <span class="legend-dot bg-vote-no"></span>
+            <span>{% trans "No" %} ({{ article.votes_no }})</span>
+        </div>
+    </div>
+
+    <div class="change-vote-area">
+        <button 
+            hx-get="{% url 'article_list' %}?article_id={{ article.id }}"
+            hx-target="#vote-section-{{ article.id }}"
+            hx-swap="outerHTML"
+            class="change-vote-btn">
+            {% trans "Change Vote" %}
+        </button>
+    </div>
+</div>

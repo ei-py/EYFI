@@ -8,6 +8,16 @@ def article_list(request):
     A view that retrieves all articles from the database, calculates stage
     counts, and passes them to a template for rendering.
     """
+    # Check if the request is for resetting a specific vote section
+    if request.headers.get('Hx-Request') and 'article_id' in request.GET:
+        try:
+            article_id = int(request.GET.get('article_id'))
+            article = get_object_or_404(Article, pk=article_id)
+            return render(request, 'news/_voting_section.html', {'article': article})
+        except (ValueError, TypeError):
+            # Handle cases where article_id is not a valid integer
+            pass
+
     articles = Article.objects.all()
     
     # Define the fixed stages
@@ -40,14 +50,33 @@ def article_list(request):
 def vote(request, article_id, vote_type):
     
     article = get_object_or_404(Article, id=article_id)
+    
+    # Get the user's vote history from the session
+    user_votes = request.session.get('user_votes', {})
+    previous_vote = user_votes.get(str(article_id))
 
+    # If the user has voted before on this article, decrement the old vote count
+    if previous_vote:
+        if previous_vote == 'yes':
+            article.votes_yes -= 1
+        elif previous_vote == 'no':
+            article.votes_no -= 1
+        elif previous_vote == 'undecided':
+            article.votes_undecided -= 1
+
+    # Increment the new vote count
     if vote_type == 'yes':
         article.votes_yes += 1
     elif vote_type == 'no':
         article.votes_no += 1
     elif vote_type == 'undecided':
         article.votes_undecided += 1
+        
+    # Update the user's vote history in the session
+    user_votes[str(article_id)] = vote_type
+    request.session['user_votes'] = user_votes
 
+    # Recalculate total votes
     total_votes = article.votes_yes + article.votes_undecided + article.votes_no
 
     if total_votes > 0:
@@ -55,9 +84,13 @@ def vote(request, article_id, vote_type):
         pct_undecided = int((article.votes_undecided / total_votes) * 100)
         pct_no = int((article.votes_no / total_votes) * 100)
 
-        if pct_yes + pct_undecided + pct_no != 100:
-            pct_yes += 100 - (pct_yes + pct_undecided + pct_no)
-
+        # Distribute rounding errors
+        remainder = 100 - (pct_yes + pct_undecided + pct_no)
+        if remainder > 0:
+            if pct_yes > 0: pct_yes += remainder
+            elif pct_undecided > 0: pct_undecided += remainder
+            else: pct_no += remainder
+        
         article.pct_yes = pct_yes
         article.pct_undecided = pct_undecided
         article.pct_no = pct_no
@@ -71,9 +104,10 @@ def vote(request, article_id, vote_type):
 
     context = {
         'article': article,
-        }
+        'user_vote_type': vote_type,
+    }
 
-    return render(request, 'news/_voting_section.html', context)
+    return render(request, 'news/_voted_section.html', context)
 
 def search_results(request):
     query = request.POST.get('search', '')

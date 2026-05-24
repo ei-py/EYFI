@@ -2,44 +2,143 @@
 {% load i18n %}
 {% load static %}
 
-{% block content %}
-<!-- <div class="progress-bar-text">
-    <ul>
-        {% for summary in stage_summaries %}
-        <li>
-            <p><strong><span class="stage-name">{{ summary.stage_name }}</span></strong><br></p>
-            <p><span class="stage-count">{{ summary.article_count }}</span></p>
-        </li>
-        {% endfor %}
-    </ul>
-</div> -->
-{% for article in articles %}
-<div class="article">
-    <div class="article-heading-title">
-        <h1 class="article-title">{{ article.translated_title }}</h1>
-        <h1 class="article-state">{{ article.translated_state }}: {{ article.translated_stage }}</h1>
-    </div>
-    <div class="article-body">
-        <h2>{{ article.translated_subject }}</h2>
-        <p>{{ article.translated_summary_proposal_details }}</p>
-
-        <h2>{% trans "Impact on Citizens" %}</h2>
-        <p>{{ article.translated_summary_citizen_impact }}</p>
-        
-        {% include "news/_voting_section.html" %}
-
-        <div class="article-source">
-            <p>
-                <strong>{% trans "Source" %}:</strong> <a href="{{ article.source_url }}" target="_blank">{% trans "Read original document" %}</a>
-                {% with raw_rt=article.get_raw_content_reading_time %}
-                {% blocktrans with word_count=raw_rt.word_count reading_time=raw_rt.reading_time %}Word count:
-                {{ word_count }}. Estimated reading time: {{ reading_time }} min.{% endblocktrans %}
-                {% endwith %}
-            </p>
+{% block full_width_content %}
+    <header class="header-onboarding">
+        <div class="header-onboarding-gradient"></div>
+        <div class="header-onboarding-container">
+            <div class="header-grid">
+                <div class="header-content">
+                    <span class="tag">
+                        <span class="tag-dot"></span>
+                        Kansalaisten parlamentti
+                    </span>
+                    <h1>Miten sinä äänestäisit eduskunnassa?</h1>
+                    <p>EYFI kääntää monimutkaiset lakiehdotukset (HE-asiakirjat) selkokielelle. Vertaa mielipiteitäsi muihin kansalaisiin, hallitusohjelmaan sekä virallisiin kansanedustajiin reaaliajassa.</p>
+                    <div class="header-buttons">
+                        <a href="#proposals" class="btn btn-primary">Selaa lakiehdotuksia &rarr;</a>
+                        <a href="#dashboard" class="btn btn-secondary">Katso tilastot</a>
+                    </div>
+                </div>
+                <div class="header-explainer">
+                    <div class="explainer-card">
+                        <h3>Näin osallistut:</h3>
+                        <div class="explainer-step">
+                            <div class="explainer-number">1</div>
+                            <div class="explainer-text">
+                                <h4>Lue selkoversio</h4>
+                                <p>Tiivistämme hallituksen esityksen (HE) ymmärrettäväksi tavoitteeksi ja vaikutuksiksi kansalaisiin.</p>
+                            </div>
+                        </div>
+                        <div class="explainer-step">
+                            <div class="explainer-number">2</div>
+                            <div class="explainer-text">
+                                <h4>Anna äänesi</h4>
+                                <p>Äänestä Kyllä, Puolueeton tai Ei – aivan kuten kansanedustajat eduskunnan istuntosalissa.</p>
+                            </div>
+                        </div>
+                        <div class="explainer-step">
+                            <div class="explainer-number">3</div>
+                            <div class="explainer-text">
+                                <h4>Vertaa tuloksia</h4>
+                                <p>Näet heti miten muut käyttäjät ja hallituksen enemmistö suhteutuvat mielipiteeseesi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% empty %}
-<p>{% trans "No articles found in the database." %}</p>
-{% endfor %}
+    </header>
+
+    <section id="dashboard" class="dashboard-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon proposals">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div>
+                    <h3>Avoimet lakiehdotukset</h3>
+                    <div class="stat-value">
+                        <span class="number">{{ articles|length }}</span>
+                        <span class="badge badge-proposals">+12 tällä viikolla</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon closed">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                </div>
+                <div>
+                    <h3>Päätetyt esitykset (2026)</h3>
+                    <div class="stat-value">
+                        <span class="number">184</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon citizens">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <div>
+                    <h3>EYFI-kansalaisäänet</h3>
+                    <div class="stat-value">
+                        <span class="number">48,290</span>
+                        <span class="badge badge-citizens">Aktiivista vaikuttajaa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <main id="proposals">
+        
+        <div class="article-header">
+            <div>
+                <h1>Käsittelyssä olevat lakiehdotukset</h1>
+                <p>Ota kantaa tällä hetkellä eduskunnassa valmisteltaviin päätöksiin.</p>
+            </div>
+        </div>
+
+        {% for article in articles %}
+        <article class="docket-card">
+            <header class="docket-header">
+                <div class="docket-header-tags">
+                    <span class="docket-tag">{{ article.translated_stage }}</span>
+                    <span class="docket-state">{{ article.translated_state }}</span>
+                </div>
+                <div class="docket-id">{{ article.article_id }}</div>
+            </header>
+
+            <div class="docket-body">
+                <h2 class="docket-title">{{ article.translated_title }}</h2>
+
+                <div class="docket-content">
+                    <div>
+                        <h3>Proposal Details</h3>
+                        <p>{{ article.translated_summary_proposal_details }}</p>
+                    </div>
+                    <div>
+                        <h3>Impact on Citizens</h3>
+                        <p class="docket-content-highlight">{{ article.translated_summary_citizen_impact }}</p>
+                    </div>
+                </div>
+
+                {% include "news/_voting_section.html" with article=article %}
+
+                <footer class="docket-footer">
+                    <a href="{{ article.source_url }}" target="_blank" class="docket-source-link">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        Read Original Document (Eduskunta)
+                    </a>
+                    {% with raw_rt=article.get_raw_content_reading_time %}
+                    <span>Est. reading time: {{ raw_rt.reading_time }} min</span>
+                    {% endwith %}
+                </footer>
+            </div>
+        </article>
+        {% empty %}
+        <p>{% trans "No articles found in the database." %}</p>
+        {% endfor %}
+    </main>
 {% endblock %}

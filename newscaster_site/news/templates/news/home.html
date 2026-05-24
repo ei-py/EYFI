@@ -1,0 +1,239 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EYFI - Civic Engagement</title>
+    
+    <!-- Fonts for Official / Modern contrast -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for rapid, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        vote: {
+                            yes: '#10b981', 
+                            und: '#94a3b8', 
+                            no: '#ef4444',  
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #f8fafc; }
+        
+        .docket-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .progress-segment {
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-segment::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
+            background-size: 1rem 1rem;
+        }
+
+        .btn-vote {
+            transition: all 0.15s ease;
+        }
+        .btn-vote:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-navy-900 text-white shadow-xl">
+        <div class="max-w-5xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-10">
+                    <a href="/" class="text-2xl font-serif font-black tracking-tight flex items-center gap-2">
+                        <span class="text-blue-400">EY</span>FI
+                    </a>
+                    <div class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide text-slate-400 uppercase">
+                        <a href="#" class="hover:text-white transition-colors">Proposals</a>
+                        <a href="#" class="hover:text-white transition-colors">Your Impact</a>
+                        <a href="#" class="hover:text-white transition-colors">Live Map</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="relative hidden sm:block">
+                        <input type="search" class="w-48 lg:w-64 pl-4 pr-10 py-1.5 rounded-full bg-navy-800 border border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Search HE codes...">
+                        <svg class="absolute right-3 top-2 h-4 w-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <div class="text-xs font-black text-slate-500 flex gap-2">
+                        <span class="text-white underline decoration-blue-500 decoration-2 underline-offset-4">FI</span>
+                        <span class="hover:text-white cursor-pointer transition-colors">EN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-3xl mx-auto px-4 py-12">
+        
+        <header class="mb-12">
+            <h1 class="text-4xl font-serif font-black text-navy-900 mb-2">Civic Pulse</h1>
+            <p class="text-lg text-slate-500 italic font-serif">Bridging the gap between parliament and people.</p>
+        </header>
+
+        {% for article in articles %}
+        <!-- Proposal Card -->
+        <article class="docket-card bg-white rounded-2xl border border-slate-200 overflow-hidden mb-10">
+            <!-- Card Header -->
+            <div class="bg-navy-900/5 px-8 py-4 flex justify-between items-center border-b border-slate-100">
+                <div class="flex items-center gap-4">
+                    <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Active Review</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Docket HE 42/2024</span>
+                </div>
+                <div class="text-[10px] font-bold text-slate-400 bg-white px-2 py-1 rounded border border-slate-100 shadow-sm">Updated 2h ago</div>
+            </div>
+
+            <div class="p-8">
+                <h2 class="text-3xl font-serif font-black text-navy-900 leading-tight mb-8">
+                    Laki Kansaneläkelain Muuttamisesta
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h3 class="text-[11px] font-black text-blue-600 uppercase tracking-[0.2em] mb-3">The Proposal</h3>
+                        <p class="text-[15px] leading-relaxed text-slate-600 font-medium">
+                            Hallitus esittää muutoksia kansaneläkelakiin valtion talouden tasapainottamiseksi. Esitys sisältää indeksikorotusten jäädytyksen vuosille 2024–2026.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-[11px] font-black text-red-500 uppercase tracking-[0.2em] mb-3">Direct Impact</h3>
+                        <p class="text-[15px] leading-relaxed text-slate-600 font-medium">
+                            Vaikuttaa suoraan pienituloisten ostovoimaan hidastamalla eläkkeiden kasvua. Tavoitteena on säästää n. 150 miljoonaa euroa vuodessa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Voting Area -->
+                <div id="vote-section-42" class="relative">
+                    <!-- Before Vote UI -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border-2 border-dashed border-slate-200 text-center transition-all hover:border-blue-300 group">
+                        <h4 class="text-lg font-serif font-bold text-navy-800 mb-6 group-hover:text-blue-700 transition-colors">How would you vote if you were in Parliament?</h4>
+                        
+                        <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                            <button onclick="castVote(42, 'yes')" class="btn-vote flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-slate-200 text-vote-yes hover:bg-vote-yes hover:text-white hover:border-vote-yes font-bold shadow-sm">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-xs uppercase tracking-widest">Kyllä</span>
+                            </button>
+                            <button onclick="castVote(42, 'und')" class="btn-vote flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-slate-200 text-vote-und hover:bg-vote-und hover:text-white hover:border-vote-und font-bold shadow-sm">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-xs uppercase tracking-widest">Ehkä</span>
+                            </button>
+                            <button onclick="castVote(42, 'no')" class="btn-vote flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-slate-200 text-vote-no hover:bg-vote-no hover:text-white hover:border-vote-no font-bold shadow-sm">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span class="text-xs uppercase tracking-widest">Ei</span>
+                            </button>
+                        </div>
+                        <p class="mt-6 text-[10px] text-slate-400 font-bold uppercase tracking-widest">2,481 citizens have participated in this docket</p>
+                    </div>
+                </div>
+
+                <!-- Footer Meta -->
+                <div class="mt-10 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 text-xs font-bold text-slate-400">
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h.01a1 1 0 100-2H10zm3 0a1 1 0 000 2h.01a1 1 0 100-2H13zM7 13a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h.01a1 1 0 100-2H10zm3 0a1 1 0 000 2h.01a1 1 0 100-2H13z" clip-rule="evenodd"></path></svg> 1,200 Words</span>
+                        <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg> 4 min read</span>
+                    </div>
+                    <a href="#" class="text-sm font-bold text-blue-600 hover:text-navy-900 transition-colors flex items-center gap-1">
+                        View Official Registry
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <p>{% trans "No articles found in the database." %}</p>
+        {% endfor %}
+
+    </main>
+
+    <script>
+        function castVote(id, type) {
+            const section = document.getElementById(`vote-section-${id}`);
+            
+            // Simulating a response based on the type
+            const label = type === 'yes' ? 'Kyllä' : type === 'no' ? 'Ei' : 'Puolueeton';
+            const color = type === 'yes' ? 'bg-vote-yes' : type === 'no' ? 'bg-vote-no' : 'bg-vote-und';
+            const textColor = type === 'yes' ? 'text-vote-yes' : type === 'no' ? 'text-vote-no' : 'text-vote-und';
+
+            // New HTML structure mimicking what Django would return
+            section.innerHTML = `
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm animate-in fade-in zoom-in duration-300">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Your Stance</h4>
+                            <div class="flex items-center gap-2 font-serif text-xl font-black ${textColor}">
+                                <div class="w-3 h-3 rounded-full ${color}"></div>
+                                ${label}
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Global Consensus</h4>
+                            <div class="text-xl font-serif font-black text-navy-900">2,482 Votes</div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Container -->
+                    <div class="relative h-12 w-full bg-slate-100 rounded-xl overflow-hidden flex shadow-inner border border-slate-200">
+                        <div id="bar-yes" class="progress-segment bg-vote-yes flex items-center justify-center text-white font-black text-sm" style="width: 0%">41%</div>
+                        <div id="bar-und" class="progress-segment bg-vote-und flex items-center justify-center text-white font-black text-sm" style="width: 0%">12%</div>
+                        <div id="bar-no" class="progress-segment bg-vote-no flex items-center justify-center text-white font-black text-sm" style="width: 0%">47%</div>
+                    </div>
+
+                    <div class="grid grid-cols-3 mt-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        <div class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-vote-yes"></div> Kyllä (1,018)</div>
+                        <div class="text-center flex items-center justify-center gap-1.5"><div class="w-2 h-2 rounded-full bg-vote-und"></div> Ehkä (298)</div>
+                        <div class="text-right flex items-center justify-end gap-1.5"><div class="w-2 h-2 rounded-full bg-vote-no"></div> Ei (1,166)</div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-slate-100 flex justify-center">
+                        <button onclick="location.reload()" class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] hover:text-navy-900 transition-colors">Change Vote</button>
+                    </div>
+                </div>
+            `;
+
+            // Trigger progress animations
+            setTimeout(() => {
+                document.getElementById('bar-yes').style.width = '41%';
+                document.getElementById('bar-und').style.width = '12%';
+                document.getElementById('bar-no').style.width = '47%';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
